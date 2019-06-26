@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { ScreenOrientation } from 'expo'
 import DrawerContent from './components/DrawerContent';
 import DrawerFst from './components/DrawerFst';
+import DrawerScd from './components/DrawerScd';
 
 export default class App extends React.PureComponent {
   state = {
@@ -35,6 +36,7 @@ export default class App extends React.PureComponent {
         <Text>Acorda porra!</Text>
         <DrawerContent />
         <DrawerFst orientation={orientation}/>
+        <DrawerScd orientation={orientation}/>
         {/* <DrawerScd /> */}
       </View>
     )
@@ -44,8 +46,8 @@ export default class App extends React.PureComponent {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
+    backgroundColor: 'cyan',
+    // alignItems: 'center',
     justifyContent: 'center',
   },
 });

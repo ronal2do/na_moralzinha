@@ -44,24 +44,17 @@ class ScrollViewInsidePanel extends React.Component {
   _draggedValue = new Animated.Value(120)
 
   render() {
-    // const draggedValue = this._draggedValue.interpolate({
-    //   inputRange: [bottom, top],
-    //   outputRange: [0, 1],
-    //   extrapolate: 'clamp'
-    // })
-
-    console.log('this.props', this.props)
     return (
       <>
         <TouchableOpacity onPress={() => this._panel.show()}>
           <View>
-            <Text>Show</Text>
+            <Text>Show 1</Text>
           </View>
         </TouchableOpacity>
         <SlidingUpPanel 
           ref={c => (this._panel = c)}
           animatedValue={this._draggedValue}
-          // snappingPoints={[120, 300, 500]}
+          snappingPoints={[120, 300, 500]}
           >
           {dragHandler => (
             <View style={styles[this.props.orientation].container}>

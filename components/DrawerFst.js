@@ -3,7 +3,7 @@ import { View, Text, ScrollView, Animated } from 'react-native'
 
 import SlidingUpPanel from 'rn-sliding-up-panel'
 
-const styles = {
+const styles = { // TODO: make me smart
   PORTRAIT: {
     container: {
       // zIndex: 1,
@@ -12,7 +12,35 @@ const styles = {
       justifyContent: 'center'
     },
   },
+  PORTRAIT_UP: {
+    container: {
+      // zIndex: 1,
+      backgroundColor: 'white',
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+  },
   LANDSCAPE: {
+    container: {
+      width: 240,
+      zIndex: 1,
+      backgroundColor: 'white',
+      alignSelf: 'flex-end',
+      justifyContent: 'center',
+      marginRight: 45
+    },
+  },
+  LANDSCAPE_LEFT: {
+    container: {
+      width: 240,
+      zIndex: 1,
+      backgroundColor: 'white',
+      alignSelf: 'flex-end',
+      justifyContent: 'center',
+      marginRight: 45
+    },
+  },
+  LANDSCAPE_RIGHT: {
     container: {
       width: 240,
       zIndex: 1,
@@ -40,7 +68,6 @@ const styles = {
 }
 
 class ScrollViewInsidePanel extends React.PureComponent {
-
   constructor(props) {
     super(props);
     this._panel = React.createRef();
@@ -53,6 +80,7 @@ class ScrollViewInsidePanel extends React.PureComponent {
   }
 
   render() {
+    const { orientation = "LANDSCAPE" } = this.props
     return (
       <SlidingUpPanel 
         ref={this._panel}
@@ -61,7 +89,7 @@ class ScrollViewInsidePanel extends React.PureComponent {
         snappingPoints={[0, 300, 500]}
         >
         {dragHandler => (
-          <View style={styles[this.props.orientation].container}>
+          <View style={styles[orientation].container}>
             <View style={styles.dragHandler} {...dragHandler}>
               <Text>Drag handler</Text>
             </View>

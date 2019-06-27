@@ -15,7 +15,48 @@ const styles = {
       justifyContent: 'center'
     },
   },
+  PORTRAIT_UP: {
+    panel: {
+      padding: 20,
+      backgroundColor: '#f7f5eee8',
+    },
+    container: {
+      backgroundColor: 'white',
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+  },
   LANDSCAPE: {
+    panel: {
+      width: 240,
+      padding: 20,
+      backgroundColor: '#f7f5eee8',
+    },
+    container: {
+      width: 240,
+      zIndex: 1,
+      backgroundColor: 'white',
+      alignSelf: 'flex-end',
+      justifyContent: 'center',
+      marginRight: 30
+    },
+  },
+  LANDSCAPE_LEFT: {
+    panel: {
+      width: 240,
+      padding: 20,
+      backgroundColor: '#f7f5eee8',
+    },
+    container: {
+      width: 240,
+      zIndex: 1,
+      backgroundColor: 'white',
+      alignSelf: 'flex-end',
+      justifyContent: 'center',
+      marginRight: 30
+    },
+  },
+  LANDSCAPE_RIGHT: {
     panel: {
       width: 240,
       padding: 20,
@@ -78,8 +119,12 @@ const styles = {
   },
 }
 
-export default class DrawerScd extends React.Component {
-  
+export default class DrawerScd extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this._bs = React.createRef();
+  }
+
   renderInner = () => (
     <View style={styles[this.props.orientation].panel}>
       <Text style={styles.panelTitle}>San Francisco Airport</Text>
@@ -103,24 +148,21 @@ export default class DrawerScd extends React.Component {
     </View>
   )
 
+  show(toPoint) {
+    this._bs.current.snapTo(toPoint)
+  }
+
   render() {
     return (
-      <>
-        <TouchableOpacity onPress={() => this.bs.snapTo(1)}>
-          <View>
-            <Text>Show</Text>
-          </View>
-        </TouchableOpacity>
-        <View style={[styles.panelContainer, styles[this.props.orientation].container]}>
-          <BottomSheet
-            ref={e=> this.bs = e}
-            snapPoints={[0, 300, 600]}
-            renderContent={this.renderInner}
-            renderHeader={this.renderHeader}
-            initialSnap={0}
-          />
-        </View>
-      </>
+      // <View style={[styles.panelContainer, styles[this.props.orientation].container]}>
+        <BottomSheet
+          ref={this._bs}
+          snapPoints={[0, 100, 270]}
+          renderContent={this.renderInner}
+          renderHeader={this.renderHeader}
+          initialSnap={0}
+        />
+      // </View>
     )
   }
 }

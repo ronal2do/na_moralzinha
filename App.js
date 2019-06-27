@@ -31,12 +31,12 @@ export default class App extends React.PureComponent {
   }
 
   render() {
+    const { width, height } = Dimensions.get('window')
     const { orientation } = this.state
 
-    if ( 
-      orientation === null ||
-      orientation === undefined 
-      ) {
+    const portrait = orientation === 'PORTRAIT'
+
+    if ( orientation === null || orientation === undefined ) {
       return <ActivityIndicator/>
     }
 
@@ -49,6 +49,31 @@ export default class App extends React.PureComponent {
           PanelHelper.show()  
          */}
         <Panel ref={ref => PanelHelper.setPanelReference(ref)} orientation={orientation}/>
+        {/* <TouchableOpacity
+          style={[
+            styles.reportButton,
+            { top: orientation === orientation.startsWith('PORTRAIT') ? 55 : 30 }]}
+            onPress={() => this._panel.current.show(portrait ? height * 0.55 : height * 0.9)}
+          >
+          <View>
+            <Text>📢</Text>
+          </View>
+        </TouchableOpacity>
+        <MapView 
+          style={{flex: 1 }} 
+          initialRegion={{
+            latitude: 37.78825,
+            longitude: -122.4324,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        />
+        <DrawerFst
+          draggableRange={portrait ? { top: height * 0.55, bottom: 0 } : { top: height * 0.9, bottom: 0 }}
+          ref={this._panel}
+          orientation={orientation}
+          allowDragging={portrait ? true : false}
+        /> */}
       </>
     )
   }

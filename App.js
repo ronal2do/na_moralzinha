@@ -1,12 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { StyleSheet, ActivityIndicator } from 'react-native';
 import { ScreenOrientation } from 'expo'
-import DrawerContent from './components/DrawerContent';
-import Map from './screens/Map';
-import DrawerFst from './components/DrawerFst';
-import DrawerScd from './components/DrawerScd';
-import MapView from 'react-native-maps';
-import { useDeviceLayout } from './constants/Layout'
 import AppNavigator from './navigation/AppNavigator';
 export default class App extends React.PureComponent {
   orListener = null;
@@ -51,7 +45,11 @@ export default class App extends React.PureComponent {
       return <ActivityIndicator/>
     }
 
-    return <AppNavigator/>
+    return (
+      <>
+        <AppNavigator/>
+      </>
+    )
   }
 }
 

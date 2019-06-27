@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { ScreenOrientation } from 'expo'
-import DrawerFst from '../components/DrawerFst';
+import Panel from '../components/Panel';
 import MapView from 'react-native-maps';
 
 export default class Map extends React.PureComponent {
@@ -10,7 +10,6 @@ export default class Map extends React.PureComponent {
   constructor(props) {
     super(props);
     this._panel = React.createRef();
-    this._bs = React.createRef();
   }
 
   state = {
@@ -73,7 +72,7 @@ export default class Map extends React.PureComponent {
             longitudeDelta: 0.0421,
           }}
         /> */}
-        <DrawerFst ref={this._panel} orientation={orientation}/>
+        <Panel ref={this._panel} orientation={orientation}/>
       </>
     )
   }

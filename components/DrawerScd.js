@@ -73,6 +73,7 @@ const styles = {
   },
   // container: {
   //   width: 240,
+  // right: 40,
   //   zIndex: 1,
   //   backgroundColor: 'white',
   //   alignSelf: 'flex-end',
@@ -109,13 +110,8 @@ const styles = {
     color: 'white',
   },
   panelContainer: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    position: 'absolute', 
-    zIndex: 1
+    width: 240,
+    height: 240,
   },
 }
 
@@ -154,15 +150,13 @@ export default class DrawerScd extends React.PureComponent {
 
   render() {
     return (
-      // <View style={[styles.panelContainer, styles[this.props.orientation].container]}>
-        <BottomSheet
-          ref={this._bs}
-          snapPoints={[0, 100, 270]}
-          renderContent={this.renderInner}
-          renderHeader={this.renderHeader}
-          initialSnap={0}
-        />
-      //{/* </View> */}
+      <BottomSheet
+        ref={this._bs}
+        snapPoints={[0, 100, 270]}
+        renderContent={this.renderInner}
+        renderHeader={this.renderHeader}
+        initialSnap={0}
+      />
     )
   }
 }

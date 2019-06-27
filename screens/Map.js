@@ -1,12 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { ScreenOrientation } from 'expo'
-import DrawerContent from './components/DrawerContent';
-import DrawerFst from './components/DrawerFst';
-import DrawerScd from './components/DrawerScd';
+import DrawerContent from '../components/DrawerContent';
+import DrawerFst from '../components/DrawerFst';
+import DrawerScd from '../components/DrawerScd';
 import MapView from 'react-native-maps';
 
-export default class App extends React.PureComponent {
+export default class Map extends React.PureComponent {
+  orListener = null;
+
   constructor(props) {
     super(props);
     this._panel = React.createRef();
@@ -33,15 +35,26 @@ export default class App extends React.PureComponent {
     this.setState({ orientation }, () => console.log('Orientation changed:', orientation))
   }
 
+  componentWillUnmount() {
+    if(this.orListener) {
+      ScreenOrientation.removeOrientationChangeListeners()
+    }
+  }
+
   render() {
     const { orientation } = this.state
-    if ( orientation === null || orientation === undefined ) {
+
+    if ( 
+      orientation === null || 
+      orientation === undefined 
+      ) {
       return <ActivityIndicator/>
     }
+
     return (
       <> 
         <View 
-          style={{flex: 1, zIndex: 1, backgroundColor: 'deepskyblue'}} 
+          style={{flex: 1, backgroundColor: 'deepskyblue'}} 
         /> 
         <TouchableOpacity style={[styles.reportButton, { top: orientation === orientation.startsWith('PORTRAIT') ? 55 : 30 }]} onPress={() => this._panel.current.show(300)}>
           <View>

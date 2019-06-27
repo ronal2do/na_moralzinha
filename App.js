@@ -2,11 +2,15 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { ScreenOrientation } from 'expo'
 import DrawerContent from './components/DrawerContent';
+import Map from './screens/Map';
 import DrawerFst from './components/DrawerFst';
 import DrawerScd from './components/DrawerScd';
 import MapView from 'react-native-maps';
-
+import { useDeviceLayout } from './constants/Layout'
+import AppNavigator from './navigation/AppNavigator';
 export default class App extends React.PureComponent {
+  orListener = null;
+
   constructor(props) {
     super(props);
     this._panel = React.createRef();
@@ -18,9 +22,8 @@ export default class App extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.asyncBootstrap()
-
     this.orListener = ScreenOrientation.addOrientationChangeListener(this.handleOrientationChange)
+    this.asyncBootstrap()
   }
 
   async asyncBootstrap() {
@@ -29,43 +32,26 @@ export default class App extends React.PureComponent {
     await ScreenOrientation.unlockAsync()
   }
 
-  handleOrientationChange = ({ orientationInfo: { orientation } }) => {
+  handleOrientationChange = ({ orientationInfo: { orientation } }) =>
     this.setState({ orientation }, () => console.log('Orientation changed:', orientation))
+
+  componentWillUnmount() {
+    if(this.orListener) {
+      ScreenOrientation.removeOrientationChangeListeners()
+    }
   }
 
   render() {
     const { orientation } = this.state
-    if ( orientation === null || orientation === undefined ) {
+
+    if ( 
+      orientation === null ||
+      orientation === undefined 
+      ) {
       return <ActivityIndicator/>
     }
-    return (
-      <> 
-        <View 
-          style={{flex: 1, zIndex: 1, backgroundColor: 'deepskyblue'}} 
-        /> 
-        <TouchableOpacity style={[styles.reportButton, { top: orientation === orientation.startsWith('PORTRAIT') ? 55 : 30 }]} onPress={() => this._panel.current.show(300)}>
-          <View>
-            <Text>Show</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.reportButton, { left: 30, top: orientation === orientation.startsWith('PORTRAIT') ? 55 : 30 }]} onPress={() => this._bs.current.show(2)}>
-          <View>
-            <Text>Show 2</Text>
-          </View>
-        </TouchableOpacity>
-        {/* <MapView 
-          style={{flex: 1 }} 
-          initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}
-        /> */}
-        <DrawerFst ref={this._panel} orientation={orientation}/>
-        <DrawerScd ref={this._bs} orientation={orientation}/> 
-      </>
-    )
+
+    return <AppNavigator/>
   }
 }
 

@@ -162,7 +162,7 @@ export default class DrawerScd extends React.PureComponent {
           renderHeader={this.renderHeader}
           initialSnap={0}
         />
-      // </View>
+      //{/* </View> */}
     )
   }
 }

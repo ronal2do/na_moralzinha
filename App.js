@@ -40,6 +40,9 @@ export default class App extends React.PureComponent {
     }
     return (
       <> 
+        <View 
+          style={{flex: 1, zIndex: 1, backgroundColor: 'deepskyblue'}} 
+        /> 
         <TouchableOpacity style={[styles.reportButton, { top: orientation === orientation.startsWith('PORTRAIT') ? 55 : 30 }]} onPress={() => this._panel.current.show(300)}>
           <View>
             <Text>Show</Text>
@@ -50,7 +53,7 @@ export default class App extends React.PureComponent {
             <Text>Show 2</Text>
           </View>
         </TouchableOpacity>
-        <MapView 
+        {/* <MapView 
           style={{flex: 1 }} 
           initialRegion={{
             latitude: 37.78825,
@@ -58,10 +61,7 @@ export default class App extends React.PureComponent {
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}
-        />
-        {/* <View 
-          style={{flex: 1, position: 'absolute', zIndex: 1, backgroundColor: 'magenta'}} 
-        />  */}
+        /> */}
         <DrawerFst ref={this._panel} orientation={orientation}/>
         <DrawerScd ref={this._bs} orientation={orientation}/> 
       </>
@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
   reportButton: {
     position: 'absolute',
     zIndex: 2,
+    elevation: 10,
     right: 30,
     width: 40,
     height: 40,

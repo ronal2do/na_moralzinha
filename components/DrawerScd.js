@@ -17,7 +17,7 @@ const styles = {
   },
   LANDSCAPE: {
     panel: {
-      height: 200,
+      width: 240,
       padding: 20,
       backgroundColor: '#f7f5eee8',
     },
@@ -67,34 +67,38 @@ const styles = {
     fontWeight: 'bold',
     color: 'white',
   },
-
+  panelContainer: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    position: 'absolute', 
+    zIndex: 1
+  },
 }
 
 export default class DrawerScd extends React.Component {
   
   renderInner = () => (
-    <View style={styles[this.props.orientation].container}>
-      <View style={styles[this.props.orientation].panel}>
-        <Text style={styles.panelTitle}>San Francisco Airport</Text>
-        <Text style={styles.panelSubtitle}>
-          International Airport - 40 miles away
-        </Text>
-        <View style={styles.panelButton}>
-          <Text style={styles.panelButtonTitle}>Directions</Text>
-        </View>
-        <View style={styles.panelButton}>
-          <Text style={styles.panelButtonTitle}>Search Nearby</Text>
-        </View>
+    <View style={styles[this.props.orientation].panel}>
+      <Text style={styles.panelTitle}>San Francisco Airport</Text>
+      <Text style={styles.panelSubtitle}>
+        International Airport - 40 miles away
+      </Text>
+      <View style={styles.panelButton}>
+        <Text style={styles.panelButtonTitle}>Directions</Text>
+      </View>
+      <View style={styles.panelButton}>
+        <Text style={styles.panelButtonTitle}>Search Nearby</Text>
       </View>
     </View>
   )
 
   renderHeader = () => (
-    <View style={styles[this.props.orientation].container}>
-      <View style={styles.header}>
-        <View style={styles.panelHeader}>
-          <View style={styles.panelHandle} />
-        </View>
+    <View style={styles.header}>
+      <View style={styles.panelHeader}>
+        <View style={styles.panelHandle} />
       </View>
     </View>
   )
@@ -107,13 +111,15 @@ export default class DrawerScd extends React.Component {
             <Text>Show</Text>
           </View>
         </TouchableOpacity>
-        <BottomSheet
-          ref={e=> this.bs = e}
-          snapPoints={[0, 300, 600]}
-          renderContent={this.renderInner}
-          renderHeader={this.renderHeader}
-          initialSnap={0}
-        />
+        <View style={[styles.panelContainer, styles[this.props.orientation].container]}>
+          <BottomSheet
+            ref={e=> this.bs = e}
+            snapPoints={[0, 300, 600]}
+            renderContent={this.renderInner}
+            renderHeader={this.renderHeader}
+            initialSnap={0}
+          />
+        </View>
       </>
     )
   }

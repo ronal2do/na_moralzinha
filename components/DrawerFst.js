@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, TouchableOpacity, Text, ScrollView, Animated} from 'react-native'
+import { View, Text, ScrollView, Animated } from 'react-native'
 
 import SlidingUpPanel from 'rn-sliding-up-panel'
 
@@ -19,7 +19,7 @@ const styles = {
       backgroundColor: 'white',
       alignSelf: 'flex-end',
       justifyContent: 'center',
-      marginRight: 30
+      marginRight: 45
     },
   },
   // container: {
@@ -39,48 +39,51 @@ const styles = {
   }
 }
 
-class ScrollViewInsidePanel extends React.Component {
-  
-  _draggedValue = new Animated.Value(120)
+class ScrollViewInsidePanel extends React.PureComponent {
+
+  constructor(props) {
+    super(props);
+    this._panel = React.createRef();
+  }
+
+  _draggedValue = new Animated.Value(60)
+
+  show(value){
+    this._panel.current.show(value)
+  }
 
   render() {
     return (
-      <>
-        <TouchableOpacity onPress={() => this._panel.show()}>
-          <View>
-            <Text>Show 1</Text>
-          </View>
-        </TouchableOpacity>
-        <SlidingUpPanel 
-          ref={c => (this._panel = c)}
-          animatedValue={this._draggedValue}
-          snappingPoints={[120, 300, 500]}
-          >
-          {dragHandler => (
-            <View style={styles[this.props.orientation].container}>
-              <View style={styles.dragHandler} {...dragHandler}>
-                <Text>Drag handler</Text>
-              </View>
-              <ScrollView>
-                <Text>Here is the content inside panel</Text>
-                <Text>Here is the content inside panel</Text>
-                <Text>Here is the content inside panel</Text>
-                <Text>Here is the content inside panel</Text>
-                <Text>Here is the content inside panel</Text>
-                <Text>Here is the content inside panel</Text>
-                <Text>Here is the content inside panel</Text>
-                <Text>Here is the content inside panel</Text>
-                <Text>Here is the content inside panel</Text>
-                <Text>Here is the content inside panel</Text>
-                <Text>Here is the content inside panel</Text>
-                <Text>Here is the content inside panel</Text>
-                <Text>Here is the content inside panel</Text>
-                <Text>Here is the content inside panel</Text>
-              </ScrollView>
+      <SlidingUpPanel 
+        ref={this._panel}
+        animatedValue={this._draggedValue}
+        showBackdrop={false}
+        snappingPoints={[0, 300, 500]}
+        >
+        {dragHandler => (
+          <View style={styles[this.props.orientation].container}>
+            <View style={styles.dragHandler} {...dragHandler}>
+              <Text>Drag handler</Text>
             </View>
-          )}
-        </SlidingUpPanel>
-      </>
+            <ScrollView>
+              <Text>Here is the content inside panel</Text>
+              <Text>Here is the content inside panel</Text>
+              <Text>Here is the content inside panel</Text>
+              <Text>Here is the content inside panel</Text>
+              <Text>Here is the content inside panel</Text>
+              <Text>Here is the content inside panel</Text>
+              <Text>Here is the content inside panel</Text>
+              <Text>Here is the content inside panel</Text>
+              <Text>Here is the content inside panel</Text>
+              <Text>Here is the content inside panel</Text>
+              <Text>Here is the content inside panel</Text>
+              <Text>Here is the content inside panel</Text>
+              <Text>Here is the content inside panel</Text>
+              <Text>Here is the content inside panel</Text>
+            </ScrollView>
+          </View>
+        )}
+      </SlidingUpPanel>
     )
   }
 }

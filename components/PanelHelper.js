@@ -1,14 +1,21 @@
 export class PanelHelper {
-  static dropDown;
+  static _panel;
   static onClose;
 
-  static setDropDown(dropDown) {
-    this.dropDown = dropDown;
+  static setPanelReference(element) {
+    this._panel = element;
   }
 
-  static show(type, title, message) {
-    if (this.dropDown) {
-      this.dropDown.alertWithType(type, title, message);
+  // static show(type, position, component) {
+  static show(position) {
+    if (this._panel) {
+      this._panel.show(position);
+    }
+  }
+
+  static setPosition(position) {
+    if (this._panel) {
+      this._panel.show(position);
     }
   }
 
@@ -16,7 +23,13 @@ export class PanelHelper {
     this.onClose = onClose;
   }
 
-  static invokeOnClose() {
+  static dismiss() {
+    if (this._panel) {
+      this._panel.show(0);
+    }
+  }
+
+  static onClose() {
     if (typeof this.onClose === 'function') {
       this.onClose();
     }

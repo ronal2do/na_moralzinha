@@ -87,7 +87,8 @@ class ScrollViewInsidePanel extends React.PureComponent {
         ref={this._panel}
         animatedValue={this._draggedValue}
         showBackdrop={false}
-        snappingPoints={[60, 300, 500]}
+        snappingPoints={[60, 300]}
+        draggableRange={{ top: 300, bottom: 60 }}
         >
         {dragHandler => (
           <View style={styles[orientation].container}>
@@ -117,4 +118,43 @@ class ScrollViewInsidePanel extends React.PureComponent {
   }
 }
 
+export class PanelHelper {
+  static _panel;
+  static onClose;
+
+  static setPanelReference(element) {
+    this._panel = element;
+  }
+
+  // static show(type, position, component) {
+  static show(position) {
+    if (this._panel) {
+      this._panel.show(position);
+    }
+  }
+
+  static setPosition(position) {
+    if (this._panel) {
+      this._panel.show(position);
+    }
+  }
+
+  static setOnClose(onClose) {
+    this.onClose = onClose;
+  }
+
+  static dismiss() {
+    if (this._panel) {
+      this._panel.show(0);
+    }
+  }
+
+  static onClose() {
+    if (typeof this.onClose === 'function') {
+      this.onClose();
+    }
+  }
+}
+
 export default ScrollViewInsidePanel
+
